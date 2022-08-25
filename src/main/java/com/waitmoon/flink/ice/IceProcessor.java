@@ -33,6 +33,7 @@ public class IceProcessor extends KeyedProcessFunction<Integer, String, String> 
         //组装IcePack
         IcePack pack = new IcePack();
         //设置要触发的iceId(配置后台中需要触发的ID)
+        //http://eg.waitmoon.com/config/detail/2/1081
         pack.setIceId(1081);
         //初始化roam，将单词和长度放入roam中
         IceRoam roam = new IceRoam();
