@@ -19,6 +19,7 @@ public class IceProcessor extends KeyedProcessFunction<Integer, String, String> 
         //初始化ice客户端
         try {
             //配置远程server地址，app，以及节点扫描路径
+            //此处使用了自己搭建的server，后台地址 http://eg.waitmoon.com/config/list/2
             iceNioClient = new IceNioClient(2, "waitmoon.com:18121", "com.waitmoon.flink.ice.node");
             //启动ice客户端
             iceNioClient.start();
