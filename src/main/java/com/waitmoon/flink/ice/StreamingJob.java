@@ -36,33 +36,14 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 public class StreamingJob {
 
     public static void main(String[] args) throws Exception {
-        // set up the streaming execution environment
+        // 创建 Flink 执行环境
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-
-        /*
-         * Here, you can start creating your execution plan for Flink.
-         *
-         * Start with getting some data from the environment, like
-         * 	env.readTextFile(textPath);
-         *
-         * then, transform the resulting DataStream<String> using operations
-         * like
-         * 	.filter()
-         * 	.flatMap()
-         * 	.join()
-         * 	.coGroup()
-         *
-         * and many more.
-         * Have a look at the programming guide for the Java API:
-         *
-         * https://flink.apache.org/docs/latest/apis/streaming/index.html
-         *
-         */
-        //监听9000端口发送的数据，以回车分割单词
+        //接收本地socket9000端口输入流，以回车分割单词
+        //通过netcat制造输入流 nc -l 9000 (windows nc -l -p 9000)
         DataStreamSource<String> stream = env.socketTextStream("localhost", 9000, "\n");
-        //按照单词长度keyBy，执行IceProcessor并打印结果
-        stream.keyBy(String::length).process(new IceProcessor()).print().setParallelism(2);
-        // execute program
+        //按照单词长度keyBy，使用IceProcessor并打印结果
+        stream.keyBy(String::length).process(new IceProcessor()).print().setParallelism(1);
+        //执行程序
         env.execute("Flink Streaming Java API Skeleton");
     }
 }
