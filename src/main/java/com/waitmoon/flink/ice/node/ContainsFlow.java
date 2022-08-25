@@ -30,7 +30,7 @@ public class ContainsFlow extends BaseLeafRoamFlow {
 
     @Override
     public void afterPropertiesSet() {
-        log.info("ContainsFlow init with key:{}, set:{}", key, set);
+        log.info("ContainsFlow init with key:{}, set:{} nodeId:{}", key, set, this.getIceNodeId());
     }
 
     public NodeRunStateEnum errorHandle(IceContext ctx, Throwable t) {
