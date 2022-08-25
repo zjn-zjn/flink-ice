@@ -7,13 +7,13 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author waitmoon
- * put something to roam
+ * 将一个值放入roam
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 public class PutNone extends BaseLeafRoamNone {
-
-    private String key;
+    //默认result
+    private String key = "result";
 
     private Object value;
 

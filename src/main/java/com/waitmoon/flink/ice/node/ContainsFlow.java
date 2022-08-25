@@ -1,7 +1,5 @@
 package com.waitmoon.flink.ice.node;
 
-import com.googlecode.aviator.AviatorEvaluator;
-import com.googlecode.aviator.Expression;
 import com.ice.common.enums.NodeRunStateEnum;
 import com.ice.core.context.IceContext;
 import com.ice.core.context.IceRoam;
@@ -10,30 +8,29 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Set;
+
 /**
  * @author waitmoon
- * ice with Aviator
- * exp: aviator expression
+ * 判断值在不在集合中
  */
 @Data
 @Slf4j
 @EqualsAndHashCode(callSuper = true)
-public class AviatorFlow extends BaseLeafRoamFlow {
+public class ContainsFlow extends BaseLeafRoamFlow {
+    //默认input
+    private String key = "input";
 
-    private String exp;
-
-    private Expression compiledExpression;
+    private Set<String> set;
 
     @Override
     protected boolean doRoamFlow(IceRoam roam) {
-        return (boolean) compiledExpression.execute(roam);
+        return set.contains(roam.<String>getMulti(key));
     }
 
     @Override
     public void afterPropertiesSet() {
-        if (exp != null) {
-            this.compiledExpression = AviatorEvaluator.compile(exp);
-        }
+        log.info("ContainsFlow init with key:{}, set:{}", key, set);
     }
 
     public NodeRunStateEnum errorHandle(IceContext ctx, Throwable t) {
