@@ -12,6 +12,7 @@ import java.util.Set;
 
 /**
  * @author waitmoon
+ * 过滤性质节点
  * 判断值在不在集合中
  */
 @Data
@@ -25,6 +26,7 @@ public class ContainsFlow extends BaseLeafRoamFlow {
 
     @Override
     protected boolean doRoamFlow(IceRoam roam) {
+        //判断roam中的key对应的值是否在集合中
         return set.contains(roam.<String>getMulti(key));
     }
 

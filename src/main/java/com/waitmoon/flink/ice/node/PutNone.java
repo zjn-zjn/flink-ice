@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * @author waitmoon
+ * 不干扰流程性质节点
  * 将一个值放入roam
  */
 @Data
@@ -19,6 +20,7 @@ public class PutNone extends BaseLeafRoamNone {
 
     @Override
     protected void doRoamNone(IceRoam roam) {
+        //将value放到roam中
         roam.putMulti(key, value);
     }
 }

@@ -58,8 +58,9 @@ public class StreamingJob {
          * https://flink.apache.org/docs/latest/apis/streaming/index.html
          *
          */
-
+        //监听9000端口发送的数据，以回车分割单词
         DataStreamSource<String> stream = env.socketTextStream("localhost", 9000, "\n");
+        //按照单词长度keyBy，执行IceProcessor并打印结果
         stream.keyBy(String::length).process(new IceProcessor()).print().setParallelism(2);
         // execute program
         env.execute("Flink Streaming Java API Skeleton");
